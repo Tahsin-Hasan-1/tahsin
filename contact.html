@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- base href ensures all relative paths work on localhost, GitHub Pages, Vercel, InfinityFree -->
+    <base href="./">
+    <meta name="description" content="Contact Tahsin Hasan — email, LinkedIn and Facebook.">
+    <title>Contact — Tahsin Hasan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="media/p.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="selection:bg-cyan-500/25 selection:text-cyan-100 min-h-screen flex flex-col">
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- HEADER INCLUDE -->
+    <header id="site-header" class="fixed top-0 left-0 w-full z-50 bg-[#030305]/70 backdrop-blur-md border-b border-cyan-500/5 relative"></header>
+
+    <main class="flex-grow pt-20">
+
+        <!-- Page Title -->
+        <section class="py-16 px-6 text-center reveal-on-scroll">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 gradient-text-pink">Get In Touch</h1>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Let's collaborate, talk security, or discuss opportunities.</p>
+        </section>
+
+        <!-- Form & Socials -->
+        <section class="pb-24 px-6">
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+
+                <!-- Contact Form -->
+                <div class="cyber-card p-7 md:p-8 reveal-on-scroll">
+                    <h2 class="text-lg font-bold mb-6">Send a Message</h2>
+
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5">
+                        <input type="hidden" name="access_key" value="8fa40e2c-8ea9-4586-9088-83bf9018e54b">
+                        <input type="hidden" name="subject" value="New Portfolio Inquiry">
+                        <input type="checkbox" name="botcheck" style="display:none">
+
+                        <div>
+                            <label class="block text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1.5">Name</label>
+                            <input type="text" name="name" required placeholder="Your Name"
+                                class="w-full px-4 py-3 bg-[#030305] border border-cyan-500/10 rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-500/40 transition-all duration-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1.5">Email</label>
+                            <input type="email" name="email" required placeholder="your@email.com"
+                                class="w-full px-4 py-3 bg-[#030305] border border-cyan-500/10 rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-500/40 transition-all duration-300 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1.5">Message</label>
+                            <textarea name="message" required rows="5" placeholder="Tell me about your project..."
+                                class="w-full px-4 py-3 bg-[#030305] border border-cyan-500/10 rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-500/40 transition-all duration-300 resize-none text-sm"></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-btn"
+                            class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-bold rounded-xl hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 text-sm">
+                            Send Message
+                        </button>
+
+                        <div id="result" class="hidden mt-3 text-center text-sm font-mono"></div>
+                    </form>
+                </div>
+
+                <!-- Social Details -->
+                <div class="flex flex-col gap-5 reveal-on-scroll">
+
+                    <div class="cyber-card p-5 flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-cyan-500/5 border border-cyan-500/15 flex items-center justify-center text-xl shrink-0">📧</div>
+                        <div class="min-w-0">
+                            <p class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-0.5">Email</p>
+                            <a href="mailto:tahsin.hasan.cse@std.iu.ac.bd"
+                                class="text-slate-200 hover:text-cyan-400 transition-colors font-semibold text-sm truncate block">
+                                tahsin.hasan.cse@std.iu.ac.bd
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card p-5 flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-violet-500/5 border border-violet-500/15 flex items-center justify-center text-xl shrink-0">💼</div>
+                        <div>
+                            <p class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-0.5">LinkedIn</p>
+                            <a href="https://www.linkedin.com/in/tahsin-hasan0/" target="_blank"
+                                class="text-slate-200 hover:text-violet-400 transition-colors font-semibold text-sm block">
+                                Tahsin Hasan
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card p-5 flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-pink-500/5 border border-pink-500/15 flex items-center justify-center text-xl shrink-0">🌐</div>
+                        <div>
+                            <p class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-0.5">Facebook</p>
+                            <a href="https://www.facebook.com/mohammad.tahsin.hasan" target="_blank"
+                                class="text-slate-200 hover:text-pink-400 transition-colors font-semibold text-sm block">
+                                Mohammad Tahsin Hasan
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER INCLUDE -->
+    <footer id="site-footer" class="py-10 border-t border-cyan-500/5 bg-[#010102]/60 backdrop-blur-sm text-center"></footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        const form = document.getElementById('contact-form');
+        const result = document.getElementById('result');
+        const submitBtn = document.getElementById('submit-btn');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const json = JSON.stringify(Object.fromEntries(new FormData(form)));
+                result.className = 'mt-3 text-center text-sm font-mono text-cyan-400';
+                result.innerHTML = 'Sending…';
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.6';
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: json
+                }).then(async r => {
+                    const d = await r.json();
+                    result.innerHTML = r.ok ? '✨ Message sent successfully!' : d.message;
+                    result.className = 'mt-3 text-center text-sm font-mono ' + (r.ok ? 'text-emerald-400' : 'text-rose-400');
+                    if (r.ok) form.reset();
+                }).catch(() => {
+                    result.innerHTML = 'Connection failed. Try again.';
+                    result.className = 'mt-3 text-center text-sm font-mono text-rose-400';
+                }).finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    setTimeout(() => result.className = 'hidden', 6000);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

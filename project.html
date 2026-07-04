@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- base href ensures all relative paths work on localhost, GitHub Pages, Vercel, InfinityFree -->
+    <base href="./">
+    <meta name="description" content="Projects by Tahsin Hasan — cybersecurity tools and software utilities.">
+    <title>Projects — Tahsin Hasan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="media/p.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="selection:bg-cyan-500/25 selection:text-cyan-100 min-h-screen flex flex-col">
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- HEADER INCLUDE -->
+    <header id="site-header" class="fixed top-0 left-0 w-full z-50 bg-[#030305]/70 backdrop-blur-md border-b border-cyan-500/5 relative"></header>
+
+    <main class="flex-grow pt-20">
+
+        <!-- Page Title -->
+        <section class="py-16 px-6 text-center reveal-on-scroll">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 gradient-text-emerald">My Projects</h1>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Cybersecurity tools, software utilities, and digital platforms.</p>
+        </section>
+
+        <!-- Projects Grid -->
+        <section class="pb-24 px-6">
+            <div class="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Project 1 -->
+                <div class="cyber-card flex flex-col reveal-on-scroll">
+                    <div class="p-6 flex-grow">
+                        <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider">/Networking</span>
+                        <h3 class="text-lg font-bold mt-2 mb-3">Packet Sniffer & Analyzer</h3>
+                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-5">
+                            Lightweight network sniffer that captures and parses raw packets, detailing source/destination IPs, protocols, and payload headers.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 bg-cyan-500/10 border border-cyan-500/20 rounded text-xs font-mono text-cyan-300">C++</span>
+                            <span class="px-2 py-0.5 bg-cyan-500/10 border border-cyan-500/20 rounded text-xs font-mono text-cyan-300">libpcap</span>
+                            <span class="px-2 py-0.5 bg-cyan-500/10 border border-cyan-500/20 rounded text-xs font-mono text-cyan-300">Wireshark</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 border-t border-cyan-500/5">
+                        <a href="https://github.com/tahsin-hasan0" target="_blank" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1">
+                            Source Code <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="cyber-card flex flex-col reveal-on-scroll" style="transition-delay:0.1s">
+                    <div class="p-6 flex-grow">
+                        <span class="text-xs font-mono text-violet-400 uppercase tracking-wider">/Security</span>
+                        <h3 class="text-lg font-bold mt-2 mb-3">Port Scanner Utility</h3>
+                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-5">
+                            Fast multi-threaded TCP/UDP port scanner leveraging custom sockets to identify active services and potential entry points.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 bg-violet-500/10 border border-violet-500/20 rounded text-xs font-mono text-violet-300">Python</span>
+                            <span class="px-2 py-0.5 bg-violet-500/10 border border-violet-500/20 rounded text-xs font-mono text-violet-300">Sockets</span>
+                            <span class="px-2 py-0.5 bg-violet-500/10 border border-violet-500/20 rounded text-xs font-mono text-violet-300">Threading</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 border-t border-cyan-500/5">
+                        <a href="https://github.com/tahsin-hasan0" target="_blank" class="text-xs font-bold text-violet-400 hover:text-violet-300 transition-colors inline-flex items-center gap-1">
+                            Source Code <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="cyber-card flex flex-col reveal-on-scroll" style="transition-delay:0.2s">
+                    <div class="p-6 flex-grow">
+                        <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider">/Web</span>
+                        <h3 class="text-lg font-bold mt-2 mb-3">Personal Tech Portfolio</h3>
+                        <p class="text-slate-400 text-sm font-light leading-relaxed mb-5">
+                            This portfolio featuring glassmorphic components, centralized CSS theming, and responsive HTML/JS layout.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs font-mono text-emerald-300">HTML</span>
+                            <span class="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs font-mono text-emerald-300">CSS</span>
+                            <span class="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs font-mono text-emerald-300">JavaScript</span>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4 border-t border-cyan-500/5">
+                        <a href="index.html" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-1">
+                            Live Preview <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER INCLUDE -->
+    <footer id="site-footer" class="py-10 border-t border-cyan-500/5 bg-[#010102]/60 backdrop-blur-sm text-center"></footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
