@@ -857,7 +857,7 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
 function runFullscreenCMatrix(isBackground = false) {
     const canvas = document.createElement('canvas');
     const zIndex = isBackground ? '-1' : '999999';
-    const bg = isBackground ? 'transparent' : 'rgba(0,0,0,0.88)';
+    const bg = isBackground ? 'transparent' : 'rgba(0,0,0,0.45)';
     const pointer = isBackground ? 'none' : 'auto';
     const cursor = isBackground ? 'default' : 'pointer';
     canvas.style.cssText = `position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:${zIndex};background:${bg};cursor:${cursor};pointer-events:${pointer};`;
@@ -1299,7 +1299,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function runFullscreenSl(isBackground = false) {
     const overlay = document.createElement('div');
     const zIndex = isBackground ? '-1' : '999999';
-    const bg = isBackground ? 'transparent' : 'rgba(0,0,0,0.88)';
+    const bg = isBackground ? 'transparent' : 'rgba(0,0,0,0.45)';
     const pointer = isBackground ? 'none' : 'auto';
     overlay.style.cssText = `position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:${zIndex};background:${bg};display:flex;align-items:center;pointer-events:${pointer};overflow:hidden;`;
     document.body.appendChild(overlay);
