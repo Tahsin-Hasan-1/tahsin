@@ -537,8 +537,9 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         'whoami': 'Show identity details',
         'ls': 'List focus domains',
         'uname': 'System info',
-        'cmatrix': 'Matrix terminal visualizer (options: -s fullscreen, -b background. Use Ctrl+C to stop)',
-        'sl': 'Steam Locomotive (options: -s fullscreen, -b background. Use Ctrl+C to stop)',
+        'cmatrix': 'Matrix terminal visualizer (options: -s fullscreen, -b background. Use Ctrl+C or type "stop" to stop)',
+        'sl': 'Steam Locomotive (options: -s fullscreen, -b background. Use Ctrl+C or type "stop" to stop)',
+        'stop': 'Stop any running cmatrix / sl animation (alternative to Ctrl+C)',
         'pages': 'Show available pages to navigate',
         'clear': 'Clear terminal screen',
         'exit': 'Close connection / leave site',
@@ -622,6 +623,20 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         echo.className = 'history-item';
         echo.innerHTML = `<span class="text-green-500 font-bold">tahsin@portfolio:~$</span> <span class="text-slate-100">${rawVal}</span>`;
         history.appendChild(echo);
+
+        // ── stop command — kills any running cmatrix/sl ──────────────────────────────
+        if (cleanCmd === 'stop') {
+            if (localCmatrixInterval) {
+                clearInterval(localCmatrixInterval);
+                cmatrixIntervals.delete(localCmatrixInterval);
+                localCmatrixInterval = null;
+                history.innerHTML = '';
+            }
+            window.dispatchEvent(new Event('terminal-interrupt'));
+            printLines(['[stopped]'], 'text-rose-400');
+            setPromptVisible(true);
+            return;
+        }
 
         // ── cmatrix / cmatrix -s / cmatrix -b logic ────────────────────────────────
         if (cleanCmd.startsWith('cmatrix')) {
