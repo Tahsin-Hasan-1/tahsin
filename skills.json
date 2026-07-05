@@ -1,0 +1,42 @@
+[
+  {
+    "id": "skill_1",
+    "category": "Network analysis",
+    "color": "emerald-400",
+    "items": [
+      "Packet analysis",
+      "Traffic analysis",
+      "Network monitoring"
+    ]
+  },
+  {
+    "id": "skill_2",
+    "category": "Phishing analysis",
+    "color": "cyan-400",
+    "items": [
+      "Phishing URL detection",
+      "Phishing website detection",
+      "Phishing email analysis"
+    ]
+  },
+  {
+    "id": "skill_3",
+    "category": "OSint",
+    "color": "violet-400",
+    "items": [
+      "Geolocation analysis",
+      "Social media analysis",
+      "Public information"
+    ]
+  },
+  {
+    "id": "skill_4",
+    "category": "Tools",
+    "color": "pink-400",
+    "items": [
+      "Wireshark",
+      "Netcat",
+      "Volatility"
+    ]
+  }
+]

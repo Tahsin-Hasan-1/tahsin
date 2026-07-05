@@ -517,6 +517,9 @@ function setupFloatingTerminalToggle() {
     );
 }
 
+let dynamicSkillsData = [];
+fetch(BASE_URL + 'skills.json').then(r => r.json()).then(data => dynamicSkillsData = data).catch(e => console.warn("Could not load skills.json"));
+
 function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isFloating) {
     const txtArea = document.getElementById(textareaId);
     const inputBuffer = document.getElementById(bufferId);
@@ -620,6 +623,25 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         if (cleanCmd === 'clear') {
             history.innerHTML = '';
             return;
+        }
+
+        if (cleanCmd === 'ls' && dynamicSkillsData.length > 0) {
+            const cats = dynamicSkillsData.map(s => s.category.toLowerCase().replace(/\s+/g, '_') + '.txt').join('  ');
+            printLines([cats], 'text-slate-400');
+            return;
+        }
+
+        if (cleanCmd.startsWith('cat ') && dynamicSkillsData.length > 0) {
+            const fileName = cleanCmd.substring(4).trim();
+            if (fileName.endsWith('.txt')) {
+                const catName = fileName.slice(0, -4);
+                const skill = dynamicSkillsData.find(s => s.category.toLowerCase().replace(/\s+/g, '_') === catName);
+                if (skill) {
+                    const lines = [`[ ${skill.category} ]`, ...skill.items.map(item => `  - ${item}`)];
+                    printLines(lines, 'text-slate-300');
+                    return;
+                }
+            }
         }
 
         if (cleanCmd === 'exit') {
