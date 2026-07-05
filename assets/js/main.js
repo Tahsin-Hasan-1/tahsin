@@ -543,7 +543,7 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
     const commands = {
         'whoami': ['tahsin hasan'],
         'ls': ['network_analysis/  osint/  phishing_analysis/'],
-        'uname': ['uname : cybersecurity enthusiast'],
+        'uname': ['cybersecurity enthusiast'],
         'help': ['Available pages: index  about  blog  contact\nType a page name to navigate there.'],
         'man t': null,
         'sudo apt update': [
