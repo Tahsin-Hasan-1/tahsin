@@ -33,7 +33,7 @@ Promise.all([
 
 // ─── Mobile hamburger toggle ─────────────────────────────────────────────────
 function setupNav() {
-    const menuBtn  = document.getElementById('menu-btn');
+    const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     if (!menuBtn || !mobileMenu) return;
 
@@ -45,14 +45,14 @@ function setupNav() {
         const bars = menuBtn.querySelectorAll('span');
         if (!isOpen) {
             bars[0].style.transform = 'translateY(8px) rotate(45deg)';
-            bars[1].style.opacity   = '0';
+            bars[1].style.opacity = '0';
             bars[2].style.transform = 'translateY(-8px) rotate(-45deg)';
-            bars[2].style.width     = '24px';
+            bars[2].style.width = '24px';
         } else {
             bars[0].style.transform = '';
-            bars[1].style.opacity   = '';
+            bars[1].style.opacity = '';
             bars[2].style.transform = '';
-            bars[2].style.width     = '';
+            bars[2].style.width = '';
         }
     });
 
@@ -62,9 +62,9 @@ function setupNav() {
             mobileMenu.classList.add('hidden');
             const bars = menuBtn.querySelectorAll('span');
             bars[0].style.transform = '';
-            bars[1].style.opacity   = '';
+            bars[1].style.opacity = '';
             bars[2].style.transform = '';
-            bars[2].style.width     = '';
+            bars[2].style.width = '';
         }
     });
 }
@@ -85,9 +85,9 @@ function startHeaderLogoAnimation() {
     if (!logoEl) return;
 
     const FULL = 'tahsin@portfolio:~$';
-    const TYPE_MS  = 70;
+    const TYPE_MS = 70;
     const ERASE_MS = 35;
-    const WAIT_FULL  = 10000; // 10s
+    const WAIT_FULL = 10000; // 10s
     const WAIT_EMPTY = 5000;  // 5s
 
     let idx = 0;
@@ -174,7 +174,7 @@ function startRealisticTerminalSimulation() {
 
         const cmdTextSpan = cmdLine.querySelector('.cmd-text');
         let charIdx = 0;
-        
+
         function type() {
             if (isInteractiveTerminalActive) return;
             if (charIdx < command1.length) {
@@ -336,7 +336,7 @@ function setupFloatingTerminalToggle() {
                 <span style="width:10px;height:10px;border-radius:50%;background:rgba(239,68,68,0.8);display:inline-block"></span>
                 <span style="width:10px;height:10px;border-radius:50%;background:rgba(234,179,8,0.8);display:inline-block"></span>
                 <span style="width:10px;height:10px;border-radius:50%;background:rgba(34,197,94,0.8);display:inline-block"></span>
-                <span style="color:#22c55e;font-weight:700;margin-left:4px">tahsin@shell:~</span>
+                <span style="color:#22c55e;font-weight:700;margin-left:4px">shell:~</span>
                 <span style="color:#475569;font-size:10px;margin-left:4px">// drag to move, pull top edge to resize</span>
             </div>
             <button id="floating-terminal-close" style="background:transparent;border:none;color:#64748b;font-size:18px;line-height:1;cursor:pointer;padding:0 2px;transition:color 0.2s" onmouseover="this.style.color='#22c55e'" onmouseout="this.style.color='#64748b'">&times;</button>
@@ -401,11 +401,11 @@ function setupFloatingTerminalToggle() {
     function onDragStart(e) {
         if (e.target === closeBtn) return;
         isDragging = true;
-        
+
         // Get touch or mouse coords
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        
+
         dragStartX = clientX;
         dragStartY = clientY;
 
@@ -419,7 +419,7 @@ function setupFloatingTerminalToggle() {
         container.style.right = 'auto';
         container.style.left = `${initialLeft}px`;
         container.style.top = `${initialTop}px`;
-        
+
         // Prevent text selection
         document.body.style.userSelect = 'none';
     }
@@ -479,7 +479,7 @@ function setupFloatingTerminalToggle() {
     function onResizeMove(e) {
         if (!isResizing) return;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        
+
         // Dragging top edge UP reduces mouse coordinate Y, which increases height
         const deltaY = clientY - resizeStartY;
         const newHeight = initialHeight - deltaY;
@@ -518,9 +518,9 @@ function setupFloatingTerminalToggle() {
 }
 
 function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isFloating) {
-    const txtArea     = document.getElementById(textareaId);
+    const txtArea = document.getElementById(textareaId);
     const inputBuffer = document.getElementById(bufferId);
-    const history     = document.getElementById(historyId);
+    const history = document.getElementById(historyId);
     if (!txtArea || !inputBuffer || !history) return;
 
     const parentContainer = history.closest('.terminal-container') || history.closest('#floating-terminal-container') || history.parentElement;
@@ -531,21 +531,21 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
     }
 
     const helpCommands = {
-        'whoami'  : 'Show identity details',
-        'ls'      : 'List focus domains',
-        'uname'   : 'System info',
-        'cmatrix' : 'Matrix terminal visualizer (use cmatrix -s for full-screen)',
-        'help'    : 'Show available pages to navigate',
-        'clear'   : 'Clear terminal screen',
-        'exit'    : 'Close connection / leave site',
+        'whoami': 'Show identity details',
+        'ls': 'List focus domains',
+        'uname': 'System info',
+        'cmatrix': 'Matrix terminal visualizer (use cmatrix -s for full-screen)',
+        'help': 'Show available pages to navigate',
+        'clear': 'Clear terminal screen',
+        'exit': 'Close connection / leave site',
     };
 
     const commands = {
-        'whoami'  : ['tahsin@portfolio:~$ whoami', 'tahsin hasan'],
-        'ls'      : ['tahsin@portfolio:~$ ls', 'network_analysis/  osint/  phishing_analysis/  ctf_writeups/'],
-        'uname'   : ['tahsin@portfolio:~$ uname -a', 'Linux portfolio 6.8.0-48-generic #48~22.04.1-Ubuntu SMP x86_64 GNU/Linux'],
-        'help'    : ['tahsin@portfolio:~$ help', 'Available pages: index  about  blog  contact\nType a page name to navigate there.'],
-        'man t'   : null,
+        'whoami': ['tahsin hasan'],
+        'ls': ['network_analysis/  osint/  phishing_analysis/'],
+        'uname': ['uname : cybersecurity enthusiast'],
+        'help': ['Available pages: index  about  blog  contact\nType a page name to navigate there.'],
+        'man t': null,
         'sudo apt update': [
             'Hit:1 http://bd.archive.ubuntu.com/ubuntu noble InRelease',
             'Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]',
@@ -594,7 +594,7 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         e.preventDefault();
         e.stopPropagation();
 
-        const rawVal  = txtArea.value;
+        const rawVal = txtArea.value;
         const cleanCmd = rawVal.trim().toLowerCase();
         txtArea.value = '';
         inputBuffer.textContent = '';
@@ -703,7 +703,7 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         // For floating terminal: scroll its body div
         // For main terminal: scroll .terminal-body
         const floatingBody = document.getElementById('floating-terminal-body');
-        const mainBody     = document.querySelector('.terminal-body');
+        const mainBody = document.querySelector('.terminal-body');
         const body = isFloating ? floatingBody : mainBody;
         if (body) body.scrollTop = body.scrollHeight;
     }
@@ -719,7 +719,7 @@ function runFullscreenCMatrix() {
     let cols, ypos, trails;
 
     function resize() {
-        canvas.width  = window.innerWidth;
+        canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         cols = Math.floor(canvas.width / fontSize) + 1;
         // Start drops at random heights across the entire screen so it is instantly filled
@@ -833,12 +833,12 @@ let portAttempts = 5;
 function initPortGame(autoFocus = false) {
     targetPort = Math.floor(Math.random() * 1024) + 1;
     portAttempts = 5;
-    
+
     const log = document.getElementById('port-log');
     if (log) log.innerHTML = '<div class="text-green-500/60 mb-2">--- SCANNER INITIALIZED ---</div>';
-    
+
     updateGameStatus('port-status', `Scanner ready... [${portAttempts} attempts remaining]`, 'text-slate-400');
-    
+
     const input = document.getElementById('port-guess');
     if (input) {
         input.value = '';
@@ -867,21 +867,21 @@ function logGameAction(logId, msg, isSuccess = false) {
 
 function checkPortGuess() {
     if (!targetPort) initPortGame(false);
-    
+
     if (portAttempts <= 0) return;
-    
+
     const input = document.getElementById('port-guess');
     if (!input) return;
-    
+
     const guess = parseInt(input.value.trim(), 10);
-    
+
     if (isNaN(guess) || guess < 1 || guess > 1024) {
         updateGameStatus('port-status', 'Error: Invalid port. Enter a number between 1 and 1024.', 'text-rose-400');
         return;
     }
-    
+
     portAttempts--;
-    
+
     if (guess === targetPort) {
         updateGameStatus('port-status', 'PORT IDENTIFIED', 'text-green-400 font-bold');
         logGameAction('port-log', `[Port ${guess}] Target compromised. Access Granted!`, true);
@@ -907,14 +907,14 @@ function checkPortGuess() {
 //   'ransomware' = orange 🔒 → DOUBLE click to patch (3s window)
 //   'worm'       = purple 🪱 → click fast (1.5s window), spreads to neighbor
 const ATTACK_TYPES = {
-    ddos:       { icon: '☠️',  bg: 'bg-rose-900',   border: 'border-rose-500',   glow: 'shadow-[0_0_15px_rgba(239,68,68,0.6)]',   window: 2500, label: 'DDoS' },
+    ddos: { icon: '☠️', bg: 'bg-rose-900', border: 'border-rose-500', glow: 'shadow-[0_0_15px_rgba(239,68,68,0.6)]', window: 2500, label: 'DDoS' },
     ransomware: { icon: '🔒', bg: 'bg-orange-900', border: 'border-orange-500', glow: 'shadow-[0_0_15px_rgba(249,115,22,0.6)]', window: 3000, label: 'Ransomware' },
-    worm:       { icon: '🪱', bg: 'bg-purple-900', border: 'border-purple-500', glow: 'shadow-[0_0_15px_rgba(168,85,247,0.6)]', window: 1500, label: 'Worm' },
+    worm: { icon: '🪱', bg: 'bg-purple-900', border: 'border-purple-500', glow: 'shadow-[0_0_15px_rgba(168,85,247,0.6)]', window: 1500, label: 'Worm' },
 };
 
 const LEVELS = [
-    { attackInterval: 2000, simultaneousAttacks: 1, types: ['ddos'],                    winScore: 8,  label: 'Level 1 — Recon' },
-    { attackInterval: 1400, simultaneousAttacks: 2, types: ['ddos', 'ransomware'],       winScore: 8,  label: 'Level 2 — Intrusion' },
+    { attackInterval: 2000, simultaneousAttacks: 1, types: ['ddos'], winScore: 8, label: 'Level 1 — Recon' },
+    { attackInterval: 1400, simultaneousAttacks: 2, types: ['ddos', 'ransomware'], winScore: 8, label: 'Level 2 — Intrusion' },
     { attackInterval: 1000, simultaneousAttacks: 3, types: ['ddos', 'ransomware', 'worm'], winScore: 8, label: 'Level 3 — APT' },
 ];
 
@@ -925,9 +925,9 @@ let ipsLevelScore = 0;
 let ipsCombo = 0;
 let ipsInterval = null;
 let ipsRunning = false;
-let nodeStates  = new Array(9).fill('safe');   // 'safe' | 'attacked'
-let nodeTypes   = new Array(9).fill(null);     // attack type key
-let nodeClicks  = new Array(9).fill(0);        // for ransomware double-click
+let nodeStates = new Array(9).fill('safe');   // 'safe' | 'attacked'
+let nodeTypes = new Array(9).fill(null);     // attack type key
+let nodeClicks = new Array(9).fill(0);        // for ransomware double-click
 
 const NODE_BASE_CLASS = 'ips-node w-12 h-12 md:w-16 md:h-16 rounded flex justify-center items-center cursor-pointer transition-all duration-300 text-xl select-none';
 const NODE_SAFE_CLASS = `${NODE_BASE_CLASS} bg-slate-800 border border-slate-700`;
@@ -937,7 +937,7 @@ function resetAllNodes() {
         const node = document.getElementById(`node-${i}`);
         if (node) { node.className = NODE_SAFE_CLASS; node.innerHTML = '💻'; }
         nodeStates[i] = 'safe';
-        nodeTypes[i]  = null;
+        nodeTypes[i] = null;
         nodeClicks[i] = 0;
     }
 }
@@ -973,12 +973,12 @@ function attackRandomNode() {
     if (safeNodes.length === 0) return;
 
     const target = safeNodes[Math.floor(Math.random() * safeNodes.length)];
-    const type   = pickAttackType();
-    const cfg    = ATTACK_TYPES[type];
+    const type = pickAttackType();
+    const cfg = ATTACK_TYPES[type];
 
-    nodeStates[target]  = 'attacked';
-    nodeTypes[target]   = type;
-    nodeClicks[target]  = 0;
+    nodeStates[target] = 'attacked';
+    nodeTypes[target] = type;
+    nodeClicks[target] = 0;
 
     const node = document.getElementById(`node-${target}`);
     if (node) {
@@ -1012,7 +1012,7 @@ function infectNode(index, type) {
     if (nodeStates[index] !== 'safe') return;
     const cfg = ATTACK_TYPES[type];
     nodeStates[index] = 'attacked';
-    nodeTypes[index]  = type;
+    nodeTypes[index] = type;
     nodeClicks[index] = 0;
     const node = document.getElementById(`node-${index}`);
     if (node) {
@@ -1037,7 +1037,7 @@ function getNeighbors(index) {
 function breachNode(index) {
     if (!ipsRunning) return;
     nodeStates[index] = 'safe';
-    nodeTypes[index]  = null;
+    nodeTypes[index] = null;
     nodeClicks[index] = 0;
     ipsLives--;
     ipsCombo = 0; // Reset combo on breach
@@ -1074,7 +1074,7 @@ function patchNode(index) {
 
     // Patch successful
     nodeStates[index] = 'safe';
-    nodeTypes[index]  = null;
+    nodeTypes[index] = null;
     nodeClicks[index] = 0;
     ipsCombo++;
     const pts = Math.max(1, ipsCombo); // Combo bonus
@@ -1114,7 +1114,7 @@ function patchNode(index) {
 }
 
 function updateIpsStatus() {
-    const cfg   = LEVELS[Math.min(ipsLevel, LEVELS.length - 1)];
+    const cfg = LEVELS[Math.min(ipsLevel, LEVELS.length - 1)];
     const lives = '❤️'.repeat(ipsLives) + '🖤'.repeat(3 - ipsLives);
     const combo = ipsCombo >= 3 ? ` 🔥×${ipsCombo}` : '';
     updateGameStatus('ips-status', `${lives}  ${cfg.label}  pts:${ipsScore}${combo}`, 'text-slate-300');
@@ -1127,7 +1127,7 @@ function endIpsGame(won) {
     if (won) {
         updateGameStatus('ips-status', `🏆 NETWORK SECURE — All 3 levels cleared! pts: ${ipsScore}`, 'text-green-400 font-bold');
     } else {
-        updateGameStatus('ips-status', `🔴 BREACHED at ${LEVELS[Math.min(ipsLevel, LEVELS.length-1)].label} — pts: ${ipsScore}`, 'text-rose-500 font-bold');
+        updateGameStatus('ips-status', `🔴 BREACHED at ${LEVELS[Math.min(ipsLevel, LEVELS.length - 1)].label} — pts: ${ipsScore}`, 'text-rose-500 font-bold');
     }
 }
 

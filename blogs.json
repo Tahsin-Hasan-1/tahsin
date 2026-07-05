@@ -1,0 +1,29 @@
+[
+  {
+    "id": "blog1",
+    "category": "binary",
+    "title": "The Online, Internet Thing",
+    "date": "Jan 15, 2026",
+    "bold_lead": "The Internet — Not Magic, Just Massive Connections:",
+    "preview_content": "Many people imagine the internet as some invisible cloud floating somewhere in the sky. But in reality, the internet is just a connection between billions of computers communicating with each other.",
+    "body_paragraphs": [
+      "Every time someone opens a website, their device is talking to another computer — a server — that stores information and sends it back when requested. But these computers are not directly connected. There is an entire system that makes communication possible.",
+      "<strong class=\"text-slate-300\">Routers — The Real Workers:</strong> If computers are like people sending letters, routers are like postal workers. They connect multiple networks together and constantly decide where data should go next. Without routers, devices would not know where to send information.",
+      "In the real world, the internet runs through fiber optic cables under oceans, underground data lines across countries, cell towers, and massive data centers. When someone loads a page, the data hops across multiple points around the globe in under a second.",
+      "<strong class=\"text-slate-300\">Networking — Communication Made Possible:</strong> Networking defines rules, pathways, and protocols that allow devices from different parts of the world to understand each other. Without networking, computers would exist individually. Networking transforms separate machines into a connected digital world."
+    ]
+  },
+  {
+    "id": "blog2",
+    "category": "vantage",
+    "title": "Islamic University Concerns",
+    "date": "Dec 12, 2026",
+    "bold_lead": "Research Challenges:",
+    "preview_content": "The first public university of independent Bangladesh—Islamic University—has struggled to produce significant innovation or research even after nearly 47 years. The main purpose of a university is research and innovation, to contribute to the country's development.",
+    "body_paragraphs": [
+      "Despite having the necessary infrastructure, it is not being fully utilized. Many teachers show a lack of interest in active research, alongside insufficient budget allocations. Recently, Islamic University was allocated 198 crore taka, of which approximately 192 crore taka is spent on salaries.",
+      "Additionally, many departments lack the necessary laboratories. While research labs should ideally remain open 24 hours a day, most labs close early in the afternoon.",
+      "To advance the university in research and development, it is now essential to bring a change in the administrative mindset, ensure adequate budget allocation, recruit sufficient teachers and staff, and create a highly active, supportive environment for research students."
+    ]
+  }
+]
