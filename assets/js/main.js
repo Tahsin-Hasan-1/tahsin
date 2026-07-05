@@ -537,7 +537,8 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         'whoami': 'Show identity details',
         'ls': 'List focus domains',
         'uname': 'System info',
-        'cmatrix': 'Matrix terminal visualizer (use cmatrix -s for full-screen)',
+        'cmatrix': 'Matrix terminal visualizer (options: -s fullscreen, -b background. Use Ctrl+C to stop)',
+        'sl': 'Steam Locomotive (options: -s fullscreen, -b background. Use Ctrl+C to stop)',
         'pages': 'Show available pages to navigate',
         'clear': 'Clear terminal screen',
         'exit': 'Close connection / leave site',
@@ -593,6 +594,19 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
     }, { capture: true });
 
     txtArea.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key.toLowerCase() === 'c') {
+            e.preventDefault();
+            window.dispatchEvent(new Event('terminal-interrupt'));
+            const echo = document.createElement('div');
+            echo.className = 'history-item';
+            echo.innerHTML = `<span class="text-green-500 font-bold">tahsin@portfolio:~$</span> <span class="text-slate-100">${txtArea.value}^C</span>`;
+            history.appendChild(echo);
+            txtArea.value = '';
+            inputBuffer.textContent = '';
+            scrollToBottom();
+            return;
+        }
+
         if (e.key !== 'Enter') return;
         e.preventDefault();
         e.stopPropagation();
@@ -609,13 +623,25 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         echo.innerHTML = `<span class="text-green-500 font-bold">tahsin@portfolio:~$</span> <span class="text-slate-100">${rawVal}</span>`;
         history.appendChild(echo);
 
-        // ── cmatrix / cmatrix -s logic ───────────────────────────────────────
+        // ── cmatrix / cmatrix -s / cmatrix -b logic ────────────────────────────────
         if (cleanCmd.startsWith('cmatrix')) {
             const args = cleanCmd.split(' ').slice(1);
-            if (args.includes('-s')) {
-                runFullscreenCMatrix();
+            const isBackground = args.includes('-b');
+            if (args.includes('-s') || isBackground) {
+                runFullscreenCMatrix(isBackground);
             } else {
                 runCMatrixAnimation();
+            }
+            return;
+        }
+
+        if (cleanCmd.startsWith('sl')) {
+            const args = cleanCmd.split(' ').slice(1);
+            const isBackground = args.includes('-b');
+            if (args.includes('-s') || isBackground) {
+                runFullscreenSl(isBackground);
+            } else {
+                runSlAnimation();
             }
             return;
         }
@@ -745,11 +771,96 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         const body = isFloating ? floatingBody : mainBody;
         if (body) body.scrollTop = body.scrollHeight;
     }
+
+    function runSlAnimation() {
+        history.innerHTML = '';
+        
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'position:relative;width:100%;height:14em;overflow:hidden;';
+        
+        const trainDiv = document.createElement('pre');
+        trainDiv.style.cssText = 'position:absolute;left:100%;top:0;color:#4ade80;font-family:"Courier New",Courier,monospace;font-size:11px;line-height:1.4;white-space:pre;';
+        
+        wrapper.appendChild(trainDiv);
+        history.appendChild(wrapper);
+
+        // Engine rows (classic C51, 10 rows)
+        const ENGINE = [
+            "      ====        ________                ___________",
+            "  _D _|  |_______/        \\__I_I_____===__|_________|" ,
+            "   |(_)---  |   H\\________/ |   |        =|___ ___|" ,
+            "   /     |  |   H  |  |     |   |         ||_| |_||" ,
+            "  |      |  |   H  |__--------------------| [___] |" ,
+            "  | ________|___H__/__|_____/[][]~\\_______|       |",
+            "  |/ |   |-----------I_____I [][] []  D   |=======|",
+            "__/ =| o |=-~~\\  /~~\\  /~~\\  /~~\\ ____Y___________|__",
+            " |/-=|___|=O=====O=====O=====O   |_____/~\\___/   ",
+            "  \\_/      \\__/  \\__/  \\__/  \\__/      \\_/     "
+        ];
+
+        // Passenger car rows (same 10 rows, attached after engine)
+        const CAR = [
+            "  ______________________  ",
+            " |                      | ",
+            " | [__] [__] [__] [__]  | ",
+            " |                      | ",
+            " | [__] [__] [__] [__]  | ",
+            " |______________________| ",
+            " |______________________| ",
+            "                          ",
+            "      (O)         (O)     ",
+            "                          "
+        ];
+
+        // Power/diesel car at the rear (same 10 rows)
+        const POWER_CAR = [
+            "  _________________________",
+            " |  _______________________|",
+            " | | /\/\ DPU /\/\ /\/\ /\/\||",
+            " | |     ___________      ||",
+            " | |  __|  DIESEL  |__   ||",
+            " | |_|_______________|_| ||",
+            " |_________________________|",
+            "  \\______________________/ ",
+            "       (O)          (O)    ",
+            "                           "
+        ];
+
+        // Compose: each row = engine row (padded to same width) + 4 cars + power car
+        const engineWidth = Math.max(...ENGINE.map(r => r.length));
+        const rows = ENGINE.map((r, i) => r.padEnd(engineWidth) + CAR[i] + CAR[i] + CAR[i] + CAR[i] + POWER_CAR[i]);
+        
+        trainDiv.textContent = rows.join('\n');
+        
+        requestAnimationFrame(() => {
+            const containerWidth = wrapper.clientWidth;
+            const trainWidthPx = trainDiv.scrollWidth;
+            let posX = containerWidth; // Start exactly at the right edge
+
+            localCmatrixInterval = setInterval(() => {
+                posX -= 5; // Constant physical speed across all terminal sizes (slightly faster)
+                trainDiv.style.left = `${posX}px`;
+                
+                // End when completely off screen left
+                if (posX < -(trainWidthPx + 20)) {
+                    clearInterval(localCmatrixInterval);
+                    localCmatrixInterval = null;
+                    history.innerHTML = '';
+                    setPromptVisible(true);
+                }
+                scrollToBottom();
+            }, 16);
+        });
+    }
 }
 
-function runFullscreenCMatrix() {
+function runFullscreenCMatrix(isBackground = false) {
     const canvas = document.createElement('canvas');
-    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999999;background:transparent;cursor:pointer';
+    const zIndex = isBackground ? '-1' : '999999';
+    const bg = isBackground ? 'transparent' : 'rgba(0,0,0,0.88)';
+    const pointer = isBackground ? 'none' : 'auto';
+    const cursor = isBackground ? 'default' : 'pointer';
+    canvas.style.cssText = `position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:${zIndex};background:${bg};cursor:${cursor};pointer-events:${pointer};`;
     document.body.appendChild(canvas);
 
     const ctx = canvas.getContext('2d');
@@ -822,13 +933,15 @@ function runFullscreenCMatrix() {
         clearInterval(interval);
         window.removeEventListener('resize', resize);
         canvas.remove();
-        document.removeEventListener('keydown', close);
+        if (!isBackground) document.removeEventListener('keydown', close);
+        window.removeEventListener('terminal-interrupt', close);
     }
 
     // Delay listener registration so the current Enter keypress bubble doesn't trigger close()
     setTimeout(() => {
-        document.addEventListener('keydown', close);
+        if (!isBackground) document.addEventListener('keydown', close);
         canvas.addEventListener('click', close);
+        window.addEventListener('terminal-interrupt', close);
     }, 100);
 }
 
@@ -1182,3 +1295,115 @@ document.addEventListener('DOMContentLoaded', () => {
         initPortGame(false); // Do not autofocus on page load
     }
 });
+
+function runFullscreenSl(isBackground = false) {
+    const overlay = document.createElement('div');
+    const zIndex = isBackground ? '-1' : '999999';
+    const bg = isBackground ? 'transparent' : 'rgba(0,0,0,0.88)';
+    const pointer = isBackground ? 'none' : 'auto';
+    overlay.style.cssText = `position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:${zIndex};background:${bg};display:flex;align-items:center;pointer-events:${pointer};overflow:hidden;`;
+    document.body.appendChild(overlay);
+
+    // Click/Interrupt to dismiss
+    let slInterval;
+    const closeSl = () => {
+        clearInterval(slInterval);
+        if (document.body.contains(overlay)) document.body.removeChild(overlay);
+        window.removeEventListener('terminal-interrupt', closeSl);
+    };
+
+    if (!isBackground) {
+        overlay.addEventListener('click', closeSl);
+    }
+    window.addEventListener('terminal-interrupt', closeSl);
+
+    // Engine rows (classic C51, 10 rows)
+    const ENGINE = [
+        "      ====        ________                ___________",
+        "  _D _|  |_______/        \\__I_I_____===__|_________|" ,
+        "   |(_)---  |   H\\________/ |   |        =|___ ___|" ,
+        "   /     |  |   H  |  |     |   |         ||_| |_||" ,
+        "  |      |  |   H  |__--------------------| [___] |" ,
+        "  | ________|___H__/__|_____/[][]~\\_______|       |",
+        "  |/ |   |-----------I_____I [][] []  D   |=======|",
+        "__/ =| o |=-~~\\  /~~\\  /~~\\  /~~\\ ____Y___________|__",
+        " |/-=|___|=O=====O=====O=====O   |_____/~\\___/   ",
+        "  \\_/      \\__/  \\__/  \\__/  \\__/      \\_/     "
+    ];
+
+    // Passenger car rows (same 10 rows, attached after engine)
+    const CAR = [
+        "  ______________________  ",
+        " |                      | ",
+        " | [__] [__] [__] [__]  | ",
+        " |                      | ",
+        " | [__] [__] [__] [__]  | ",
+        " |______________________| ",
+        " |______________________| ",
+        "                          ",
+        "      (O)         (O)     ",
+        "                          "
+    ];
+
+    // Power/diesel car at the rear (same 10 rows)
+    const POWER_CAR = [
+        "  _________________________",
+        " |  _______________________|",
+        " | | /\/\ DPU /\/\ /\/\ /\/\||",
+        " | |     ___________      ||",
+        " | |  __|  DIESEL  |__   ||",
+        " | |_|_______________|_| ||",
+        " |_________________________|",
+        "  \\______________________/ ",
+        "       (O)          (O)    ",
+        "                           "
+    ];
+
+    // Compose: each row = engine row (padded) + 4 cars + power car
+    const engineWidth = Math.max(...ENGINE.map(r => r.length));
+    const rows = ENGINE.map((r, i) => r.padEnd(engineWidth) + CAR[i] + CAR[i] + CAR[i] + CAR[i] + POWER_CAR[i]);
+    const trainText = rows.join('\n');
+    const trainWidth = Math.max(...rows.map(r => r.length));
+
+    const trainDiv = document.createElement('pre');
+    trainDiv.style.cssText = [
+        'color:#22c55e',
+        'font-family:"Courier New",Courier,monospace',
+        'font-size:clamp(9px, 1.4vw, 18px)',
+        'white-space:pre',
+        'position:absolute',
+        'left:100vw',
+        'top:50%',
+        'transform:translateY(-50%)',
+        'line-height:1.45',
+        'text-shadow:0 0 10px rgba(34,197,94,0.6)',
+        'will-change:left'
+    ].join(';');
+    trainDiv.textContent = trainText;
+    overlay.appendChild(trainDiv);
+
+    if (!isBackground) {
+        const hint = document.createElement('div');
+        hint.style.cssText = 'position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(34,197,94,0.35);font-family:monospace;font-size:12px;pointer-events:none;';
+        hint.textContent = '🚂  click anywhere to dismiss';
+        overlay.appendChild(hint);
+    }
+
+    // Wait one frame for font to render, then compute real pixel width
+    requestAnimationFrame(() => {
+        const charWidth = trainDiv.scrollWidth / trainWidth;
+        const trainPx = trainWidth * charWidth;
+        const vpw = window.innerWidth;
+        let posX = vpw; // start fully off-screen right
+
+        slInterval = setInterval(() => {
+            posX -= 5; // Constant physical speed identical to inline terminal (slightly faster)
+            trainDiv.style.left = `${posX}px`;
+            
+            if (posX < -(trainPx + 20)) {
+                clearInterval(slInterval);
+                if (document.body.contains(overlay)) document.body.removeChild(overlay);
+            }
+        }, 16);
+    });
+}
