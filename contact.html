@@ -36,7 +36,7 @@
                     <h2 class="text-lg font-bold mb-6">Send a Message</h2>
 
                     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5">
-                        <input type="hidden" name="access_key" value="8fa40e2c-8ea9-4586-9088-83bf9018e54b">
+                        <input type="hidden" name="access_key" value="">
                         <input type="hidden" name="subject" value="New Portfolio Inquiry">
                         <input type="checkbox" name="botcheck" style="display:none">
 
@@ -55,6 +55,8 @@
                             <textarea name="message" required rows="5" placeholder="Tell me about your project..."
                                 class="w-full px-4 py-3 bg-[#030305] border border-cyan-500/10 rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-500/40 transition-all duration-300 resize-none text-sm"></textarea>
                         </div>
+
+                        <div class="h-captcha" data-captcha="true"></div>
 
                         <button type="submit" id="submit-btn"
                             class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-bold rounded-xl hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 text-sm">
@@ -112,6 +114,7 @@
     <footer id="site-footer" class="py-10 border-t border-cyan-500/5 bg-[#010102]/60 backdrop-blur-sm text-center"></footer>
 
     <script src="assets/js/main.js"></script>
+    <script src="https://web3forms.com/client/script.js" async defer></script>
     <script>
         const form = document.getElementById('contact-form');
         const result = document.getElementById('result');
@@ -119,6 +122,14 @@
         if (form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
+
+                const hCaptchaField = form.querySelector('textarea[name="h-captcha-response"]');
+                if (!hCaptchaField || !hCaptchaField.value) {
+                    result.className = 'mt-3 text-center text-sm font-mono text-rose-400';
+                    result.innerHTML = 'Please complete the captcha.';
+                    return;
+                }
+
                 const json = JSON.stringify(Object.fromEntries(new FormData(form)));
                 result.className = 'mt-3 text-center text-sm font-mono text-cyan-400';
                 result.innerHTML = 'Sending…';
