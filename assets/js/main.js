@@ -538,7 +538,7 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         'ls': 'List focus domains',
         'uname': 'System info',
         'cmatrix': 'Matrix terminal visualizer (use cmatrix -s for full-screen)',
-        'help': 'Show available pages to navigate',
+        'pages': 'Show available pages to navigate',
         'clear': 'Clear terminal screen',
         'exit': 'Close connection / leave site',
     };
@@ -547,7 +547,7 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         'whoami': ['tahsin hasan'],
         'ls': ['network_analysis/  osint/  phishing_analysis/'],
         'uname': ['cybersecurity enthusiast'],
-        'help': ['Available pages: index  about  blog  contact\nType a page name to navigate there.'],
+        'pages': ['Available pages: index  about  project  blog  contact\nType a page name or "cd <page>" to navigate there.'],
         'man t': null,
         'sudo apt update': [
             'Hit:1 http://bd.archive.ubuntu.com/ubuntu noble InRelease',
@@ -669,6 +669,22 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
             printLines([`Navigating to ${cleanCmd}...`], 'text-emerald-400');
             setTimeout(() => { window.location.href = BASE_URL + `${cleanCmd}.html`; }, 600);
             return;
+        }
+
+        if (cleanCmd.startsWith('cd ')) {
+            const dest = cleanCmd.substring(3).trim();
+            if (dest === '..') {
+                printLines(['Navigating back...'], 'text-emerald-400');
+                setTimeout(() => { window.history.back(); }, 600);
+                return;
+            } else if (pageNames.includes(dest)) {
+                printLines([`Navigating to ${dest}...`], 'text-emerald-400');
+                setTimeout(() => { window.location.href = BASE_URL + `${dest}.html`; }, 600);
+                return;
+            } else {
+                printLines([`bash: cd: ${dest}: No such file or directory`], 'text-rose-400');
+                return;
+            }
         }
 
         if (commands[cleanCmd] !== undefined) {
