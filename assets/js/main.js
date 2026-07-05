@@ -84,7 +84,7 @@ function startHeaderLogoAnimation() {
     const logoEl = document.querySelector('.logo-type');
     if (!logoEl) return;
 
-    const FULL = 'Tahsin@Portfolio:~$';
+    const FULL = 'tahsin@portfolio:~$';
     const TYPE_MS  = 70;
     const ERASE_MS = 35;
     const WAIT_FULL  = 10000; // 10s
