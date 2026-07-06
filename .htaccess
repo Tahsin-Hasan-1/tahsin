@@ -1,0 +1,59 @@
+# Turn on the rewrite engine
+RewriteEngine On
+
+# ----------------------------------------------------------------------
+# Hide .php extension
+# ----------------------------------------------------------------------
+# Externally redirect /dir/foo.php to /dir/foo
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.php
+RewriteRule ^/?(.*)\.php$ /$1 [L,R=301]
+
+# Internally redirect /dir/foo to /dir/foo.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*?)/?$ $1.php [L]
+
+# ----------------------------------------------------------------------
+# Hide .html extension
+# ----------------------------------------------------------------------
+# Externally redirect /dir/foo.html to /dir/foo
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.html
+RewriteRule ^/?(.*)\.html$ /$1 [L,R=301]
+
+# Internally redirect /dir/foo to /dir/foo.html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*?)/?$ $1.html [L]
+
+# ----------------------------------------------------------------------
+# Security configurations
+# ----------------------------------------------------------------------
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect .htaccess, .git, and other hidden files/directories
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Prevent viewing of certain sensitive file types
+<FilesMatch "\.(ini|log|conf|json|md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Add some basic security headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    # Enable XSS protection
+    Header always set X-XSS-Protection "1; mode=block"
+    # Referrer policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # HTTP Strict Transport Security (HSTS) - Uncomment if you have HTTPS set up
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
