@@ -9,7 +9,7 @@ const _scriptSrc = (document.currentScript && document.currentScript.src)
     || Array.from(document.querySelectorAll('script[src]')).map(s => s.src).find(s => s.includes('main.js'))
     || '';
 const BASE_URL = _scriptSrc
-    ? _scriptSrc.split('/').slice(0, -3).join('/') + '/'  // strip /assets/js/main.js
+    ? _scriptSrc.split('/').slice(0, -3).join('/') + '/'  // strip /assets/js/main.js d
     : './';
 
 Promise.all([
