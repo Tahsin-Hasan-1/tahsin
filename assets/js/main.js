@@ -542,14 +542,13 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
         'stop': 'Stop any running cmatrix / sl animation (alternative to Ctrl+C)',
         'pages': 'Show available pages to navigate',
         'clear': 'Clear terminal screen',
-        'exit': 'Close connection / leave site',
     };
 
     const commands = {
         'whoami': ['tahsin hasan'],
         'ls': ['network_analysis/  osint/  phishing_analysis/'],
         'uname': ['cybersecurity enthusiast'],
-        'pages': ['Available pages: index  about  project  blog  contact\nType a page name or "cd <page>" to navigate there.'],
+        'pages': ['Available pages: home  about  blog  contact\nType a page name or "cd <page>" to navigate there.'],
         'man t': null,
         'sudo apt update': [
             'Hit:1 http://bd.archive.ubuntu.com/ubuntu noble InRelease',
@@ -568,7 +567,6 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
             '192.168.1.45  - Linux Web Server [Ports: 80, 443 open]',
             '192.168.1.108 - Testing Host [Firewall Enabled]'
         ],
-        'exit': ['exit : Closing connection...'],
     };
 
     let localCmatrixInterval = null;
@@ -685,19 +683,6 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
             }
         }
 
-        if (cleanCmd === 'exit') {
-            printLines(['exit: Closing connection...'], 'text-rose-400');
-            setTimeout(() => {
-                if (isFloating) {
-                    const container = document.getElementById('floating-terminal-container');
-                    if (container) container.style.display = 'none';
-                } else {
-                    window.close();
-                    setTimeout(() => { window.location.href = 'https://www.google.com'; }, 300);
-                }
-            }, 800);
-            return;
-        }
 
         if (cleanCmd === 'man t') {
             const lines = ['Available Commands:', ...Object.entries(helpCommands).map(([k, v]) => `  ${k.padEnd(10)} — ${v}`)];
@@ -705,10 +690,11 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
             return;
         }
 
-        const pageNames = ['index', 'about', 'project', 'blog', 'contact'];
+        const pageNames = ['home', 'about', 'blog', 'contact'];
+        const pageRoutes = { 'home': 'index', 'about': 'about', 'blog': 'blog', 'contact': 'contact' };
         if (pageNames.includes(cleanCmd)) {
             printLines([`Navigating to ${cleanCmd}...`], 'text-emerald-400');
-            setTimeout(() => { window.location.href = BASE_URL + `${cleanCmd}.html`; }, 600);
+            setTimeout(() => { window.location.href = BASE_URL + `${pageRoutes[cleanCmd]}.html`; }, 600);
             return;
         }
 
@@ -720,7 +706,7 @@ function initTerminalInstance(textareaId, bufferId, historyId, activeLineId, isF
                 return;
             } else if (pageNames.includes(dest)) {
                 printLines([`Navigating to ${dest}...`], 'text-emerald-400');
-                setTimeout(() => { window.location.href = BASE_URL + `${dest}.html`; }, 600);
+                setTimeout(() => { window.location.href = BASE_URL + `${pageRoutes[dest]}.html`; }, 600);
                 return;
             } else {
                 printLines([`bash: cd: ${dest}: No such file or directory`], 'text-rose-400');

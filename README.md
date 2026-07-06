@@ -21,11 +21,12 @@ The portfolio includes a writing section categorized into two primary tracks:
 - **`// Binary Realms`**: Deep-dive technical write-ups and security tutorials styled with a tactical red theme.
 - **`// The Vantage`**: Thought leadership articles, general technology insights, and commentary styled in a green theme.
 
-### 4. Blog Manager Dashboard Backend (`manage_blogs.py`)
-To manage blog updates without manual HTML manipulation, the project contains a custom Python 3 HTTP server:
-- Runs locally on `http://localhost:5000`.
-- Provides a clean, TailwindCSS-powered dashboard UI to **Create, Edit, and Delete** blog posts.
-- Automatically persists the posts to `blogs.json` and compiles/syncs them into the static `blog.html` file using designated insertion comments:
+### 4. Manager Dashboard Backends (Python)
+To manage updates without manual HTML manipulation, the project contains custom Python 3 HTTP servers:
+- **`manage_blogs.py`**: Runs locally on `http://localhost:5000`. Manages blog posts in `blogs.json` and updates `blog.html`.
+- **`manage_skills.py`**: Runs locally on `http://localhost:5001`. Manages skill categories in `skills.json` and updates `about.html`.
+- Both provide a clean, TailwindCSS-powered dashboard UI to **Create, Edit, and Delete** content.
+- Both automatically compile/sync into static HTML files using designated insertion comments.
   - `<!-- BLOGS_BINARY_START -->` / `<!-- BLOGS_BINARY_END -->`
   - `<!-- BLOGS_VANTAGE_START -->` / `<!-- BLOGS_VANTAGE_END -->`
 
@@ -45,7 +46,9 @@ Includes structured procedures to secure the Web3Forms `access_key` from scraper
 ├── blog.html           # Technical & non-technical blogs page (statically compiled)
 ├── contact.html        # Secure contact form page
 ├── blogs.json          # Database file holding blog post records
+├── skills.json         # Database file holding skill points and categories
 ├── manage_blogs.py     # Python local Blog Manager server & compiler
+├── manage_skills.py    # Python local Skill Manager server & compiler
 ├── submit.php          # PHP backend proxy for Web3Forms submissions
 ├── CNAME               # Domain configuration mapping
 ├── assets/
@@ -60,12 +63,16 @@ Includes structured procedures to secure the Web3Forms `access_key` from scraper
 
 ## 🛠️ Getting Started
 
-### Running the Blog Manager Local Server
-To add, edit, or delete articles via the browser dashboard, start the Python utility server:
+### Running the Local Management Servers
+To add, edit, or delete content via the browser dashboard, start the corresponding Python utility server:
 ```bash
+# For blogs (Port 5000)
 python3 manage_blogs.py
+
+# For skills (Port 5001)
+python3 manage_skills.py
 ```
-Open [http://localhost:5000](http://localhost:5000) in your browser to access the management interface.
+Open [http://localhost:5000](http://localhost:5000) or [http://localhost:5001](http://localhost:5001) in your browser.
 
 ### Running the Web Server
 - **PHP Support (Recommended)**: Serve the project using a local stack like XAMPP or Apache to take advantage of `submit.php` proxying.
